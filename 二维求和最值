@@ -1,0 +1,17 @@
+m,n,c=map(int,input().split())
+matrix=[list(map(int,input().split())) for i in range(m)]
+prefix=[[0]*(n+1) for _ in range(m+1)]
+for i in range(m):
+    for  j in range(n):
+        prefix[i+1][j+1]=prefix[i+1][j]+prefix[i][j+1]-prefix[i][j]+matrix[i][j]
+xmin,ymin=0,0
+max_sum=float('-inf')
+for i in range(m-c+1):
+    for j in range(n-c+1):
+        r1,c1=i,j
+        r2,c2=i+c-1,j+c-1
+        tem=prefix[r2+1][c2+1]-prefix[r1][c2+1]-prefix[r2+1][c1]+prefix[r1][c1]
+        if tem>max_sum:
+            max_sum=tem
+            xmin,ymin=i,j
+print(xmin+1,ymin+1)
